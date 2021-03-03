@@ -12,7 +12,7 @@ class Meal {
 
 class HomePage extends StatefulWidget {
   final List<Meal> list = <Meal>[
-    Meal(imageSrc: 'assets/52770.jpg', title: 'Xiyar'),
+    Meal(imageSrc: 'assets/52770.jpg', title: 'Xiyar1'),
     Meal(imageSrc: 'assets/52783.jpg', title: 'Pomidor'),
     Meal(imageSrc: 'assets/52796.jpg', title: 'Lobya'),
   ];
@@ -63,8 +63,11 @@ class _HomePageState extends State<HomePage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => MealDetailWidget(Meal(
-                                              imageSrc: 'assets/1.jpg',
-                                              title: 'xiyar'))));
+                                              title: newData[index]['title'],
+                                              imageSrc: newData[index]
+                                                  ['title']))));
+                                  // imageSrc: 'assets/1.jpg',
+                                  // title: 'xiyar'))));
                                 },
                                 child: Text(
                                   newData[index]['title'],
@@ -75,8 +78,8 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Text(
-                                'xiyar',
-                                //newData[index]['text'],
+                                //'xiyar',
+                                newData[index]['title'],
                                 //'Note Text',
                                 style: TextStyle(color: Colors.grey.shade600),
                               ),
