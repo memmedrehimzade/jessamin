@@ -1,4 +1,6 @@
+import 'package:dicoding_submission/view/detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class Meal {
   String imageSrc;
@@ -20,34 +22,102 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Meal get meal => widget.list[0];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              showSearch(context: context, delegate: Search(widget.list));
+        appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: Search(widget.list));
+              },
+              icon: Icon(Icons.search),
+            )
+          ],
+          centerTitle: true,
+          title: Text('Search Bar'),
+        ),
+        body: Center(
+          child: FutureBuilder(
+            future: DefaultAssetBundle.of(context)
+                .loadString('data_local/meals.json'),
+            builder: (context, snapshot) {
+              var newData = json.decode(snapshot.data.toString());
+              return ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: 32, bottom: 32, left: 16, right: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => MealDetailWidget(Meal(
+                                              imageSrc: 'assets/1.jpg',
+                                              title: 'xiyar'))));
+                                },
+                                child: Text(
+                                  newData[index]['title'],
+                                  //'Note Title',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22),
+                                ),
+                              ),
+                              Text(
+                                'xiyar',
+                                //newData[index]['text'],
+                                //'Note Text',
+                                style: TextStyle(color: Colors.grey.shade600),
+                              ),
+                            ],
+                          ),
+                          //SizedBox(width: 20),
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: Image.asset('assets/52770.jpg'),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                itemCount: newData == null ? 0 : newData.length,
+              );
             },
-            icon: Icon(Icons.search),
-          )
-        ],
-        centerTitle: true,
-        title: Text('Search Bar'),
-      ),
-      body: ListView.builder(
-        itemCount: widget.list.length,
-        itemBuilder: (context, index) {
-          var meal = widget.list[index];
-          return ListTile(
-            leading: Image(image: AssetImage(meal.imageSrc)),
-            title: Text(meal.title),
-            subtitle: Text('sadsdadasd'),
-          );
-        },
-      ),
-    );
+          ),
+        ));
   }
+// }))},)],
+//                             ),),)
+//             }
+//           },
+//         ),
+//       ),
+  // body: ListView.builder(
+  //   itemCount: widget.list.length,
+  //   itemBuilder: (context, index) {
+  //     var meal = widget.list[index];
+  //     return ListTile(
+  //       leading: Image(image: AssetImage(meal.imageSrc)),
+  //       title: Text(meal.title),
+  //       subtitle: Text('sadsdadasd'),
+  //    );
+  //},
+  //),
+  // );
+  //}
 }
 
 class Search extends SearchDelegate<Meal> {

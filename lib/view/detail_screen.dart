@@ -1,9 +1,14 @@
+//import 'package:dicoding_submission/view/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:dicoding_submission/models/meal.dart';
 
-class MealDetail extends StatelessWidget {
+import 'home_screen.dart';
+
+//import 'home_screen.dart';
+// import 'package:dicoding_submission/models/meal.dart';
+
+class MealDetailWidget extends StatelessWidget {
   final Meal meal;
-  MealDetail(this.meal);
+  MealDetailWidget(this.meal);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,7 @@ class MealDetail extends StatelessWidget {
             color: Colors.white,
           ),
           title: Text(
-            meal.strMeal,
+            meal.title,
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -25,12 +30,12 @@ class MealDetail extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Image.asset(meal.strMealThumb),
+            Image.asset(meal.title),
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.all(3.0),
               child: Text(
-                meal.strMeal,
+                meal.title,
                 style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -54,7 +59,7 @@ class MealDetail extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      meal.strIngredient,
+                      meal.title,
                       style: TextStyle(
                           fontStyle: FontStyle.italic, color: Colors.black),
                     ),
@@ -79,7 +84,7 @@ class MealDetail extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      meal.strInstructions,
+                      meal.title,
                       style: TextStyle(
                           fontStyle: FontStyle.italic, color: Colors.black),
                     ),
